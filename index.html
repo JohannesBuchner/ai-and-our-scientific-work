@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+
+		<title>AI in Science – MPE Discussion 2026</title>
+
+		<link rel="stylesheet" href="dist/reset.css" />
+		<link rel="stylesheet" href="dist/reveal.css" />
+		<link rel="stylesheet" href="dist/theme/simple.css" />
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
+
+		<style>
+			/* 2D poll table styles */
+			.poll-wrap table {
+				font-size: 0.75em;
+				border: none;
+				width: auto;
+				margin: 0 auto;
+			}
+			.poll-wrap table td {
+				border: none;
+				padding: 2px 4px;
+				background: transparent;
+			}
+			.rotate-cell {
+				width: 1.2em;
+				overflow: hidden;
+			}
+			.rotate-cell > div {
+				display: inline-block;
+				white-space: nowrap;
+				writing-mode: vertical-rl;
+				transform: rotate(180deg);
+			}
+			td.pollbox {
+				width: 260px;
+				height: 260px;
+				padding: 0 !important;
+				border: none !important;
+			}
+			td.pollbox iframe {
+				width: 100%;
+				height: 100%;
+				border: 1px solid #888;
+				display: block;
+				background: #fff;
+			}
+
+			/* QR code top-right corner — fixed to viewport */
+			.qr-corner {
+				position: fixed;
+				top: 0px;
+				right: 0px;
+				width: 120px;
+				height: 120px;
+				z-index: 9999;
+			}
+			.qr-corner img {
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
+
+			/* HOW DO YOU USE AI six-column table */
+			.use-table {
+				font-size: 0.48em;
+				border-collapse: collapse;
+				width: 100%;
+				table-layout: fixed;
+			}
+			.quad-table {
+				font-size: 0.7em;
+			}
+			tr, td, th {
+				border: none !important;
+			}
+			.use-table th,
+			.use-table td {
+				border: none;
+				padding: 3px 4px;
+				text-align: left;
+				vertical-align: middle;
+				word-wrap: break-word;
+			}
+			.use-table td.col-pixel {
+				text-align: center;
+				padding: 0 !important;
+				width: 100px;
+				min-width: 100px;
+				height: 60px;
+			}
+			.use-table td.col-q {
+				text-align: center;
+				padding: 0 !important;
+				width: 2em;
+			}
+			.use-table td.col-pixel iframe {
+				width: 100%;
+				height: 100%;
+				min-width: 100px;
+				min-height: 160px;
+				display: block;
+				border: 1px solid #555;
+				background: #fff;
+			}
+			.use-table td strong {
+				font-size: 1.0em;
+				display: block;
+				margin-bottom: 0.2em;
+				max-width: 12ch;
+				word-break: break-word;
+			}
+			.use-table td span.sub-text {
+				font-size: 0.5em;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Global floating QR code, always visible in top-right -->
+		<div class="qr-corner"><img src="qr.svg" alt="QR code" /></div>
+
+		<div class="reveal">
+			<div class="slides">
+
+				<!-- Slide 1: AI taking over? -->
+				<section>
+					<h2>AI &amp; our scientific work</h2>
+					Interactive Discussion 
+					<img src="qr.svg" alt="QR code" style="max-width:50%; max-height:50%" />
+				</section>
+
+				<!-- Slide 1: AI taking over? -->
+				<section>
+					<h2>AI taking over?</h2>
+					<ul>
+						<li>Self-driving cars – but are humans that good at driving?</li>
+						<li>Mathematics</li>
+						<li>50% of astro papers co-written with AI support, &lt;1% declare it <em style="color:gray">arxiv:2609.10664</em></li>
+						<li>Fear, uncertainty and doubt</li>
+						<hr/>
+						<li>AI is not everything and AI is not nothing</li>
+					</ul>
+				</section>
+
+				<!-- Slide 2: Terminology -->
+				<section>
+					<h2>Terminology</h2>
+					<ul>
+						<li><strong>A</strong>rtificial <strong>I</strong>ntelligence: computers capable of learning, reasoning, problem-solving, perception, and decision-making</li>
+						<li><strong>M</strong>achine <strong>L</strong>earning: data-driven model ability</li>
+						<li><strong>L</strong>arge <strong>L</strong>anguage <strong>M</strong>odels</li>
+						<li><strong>G</strong>enerative <strong>P</strong>re-trained <strong>T</strong>ransformers</li>
+						<li><em>Slop</em>: Garbage output</li>
+						<li><em>Meat proxy</em>: using without thinking</li>
+					</ul>
+				</section>
+
+				<!-- Slide 3: Using AI -->
+				<section>
+					<h2>Using AI</h2>
+					<ul>
+						<li>Computers</li>
+						<li>"Interpolator" of some training data</li>
+						<li>Model improves its capacity with data fed into it</li>
+						<li>Areas:
+							<ul>
+								<li>Large homogeneous surveys (spectra, images, sims)</li>
+								<li>Accelerating physics models (emulators: spectral emulators)</li>
+								<li>Doing research (programming, writing, idea generation, automating) – Large Language Models</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+
+				<!-- Slide 5: 2D Interactive Poll -->
+				<section>
+					<h2 style="font-size:0.85em;">Live Poll – Usage &amp; Mood</h2>
+					<div class="poll-wrap">
+						<table>
+							<tr>
+								<td></td>
+								<td></td>
+								<td colspan="2"><strong>How often do you use AI?</strong></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td align="left">never</td>
+								<td align="right">daily</td>
+							</tr>
+							<tr>
+								<td rowspan="2" class="rotate-cell"><div><strong>How do you feel about AI?</strong></div></td>
+								<td style="vertical-align:top">relaxed</td>
+								<td rowspan="2" colspan="2" class="pollbox">
+									<iframe src="pixelpress2d.php?id=usage_mood" scrolling="no"></iframe>
+								</td>
+							</tr>
+							<tr>
+								<td style="vertical-align:bottom">anxious</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				<section>
+					<h2>Live Poll – Usage &amp; Mood</h2>
+					<div class="poll-wrap">
+
+						<div style="margin-top: 0.1em;">
+							<table>
+								<tr>
+									<td></td>
+									<td></td>
+									<td colspan="2"><strong>How useful do you find AI for your work?</strong></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td align="left">not useful</td>
+									<td align="right">very useful</td>
+								</tr>
+								<tr>
+									<td rowspan="2" class="rotate-cell"><div><strong>Ethical concerns?</strong></div></td>
+									<td style="vertical-align:top">none</td>
+									<td rowspan="2" colspan="2">
+										<iframe src="pixelpress2d.php?id=useful_ethics" scrolling="no"></iframe>
+									</td>
+								</tr>
+								<tr>
+									<td style="vertical-align:bottom">strong</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</section>
+
+				<!-- Slide 4: HOW DO YOU USE AI? – six-column table -->
+				<section>
+					<h2 style="font-size:0.75em; margin-bottom: 0.3em;">HOW DO YOU USE AI?</h2>
+					<table class="use-table">
+						<tbody>
+							<tr>
+								<td class="col-q"><strong>Demo</strong><span class="sub-text">Demonstration iframe example</span></td>
+								<td class="col-pixel">
+									<table class="quad-table">
+										<tr>
+											<td></td>
+											<td></td>
+											<td colspan="2">How useful do you find AI for your work?</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td></td>
+											<td align="left">not useful</td>
+											<td align="right">very useful</td>
+										</tr>
+										<tr>
+											<td rowspan="2" class="rotate-cell"><div>Ethical concerns?</div></td>
+											<td style="vertical-align:top">none</td>
+											<td rowspan="2" colspan="2">
+												<iframe src="pixelpress2d.php?id=useful_ethics" scrolling="no"></iframe>
+											</td>
+										</tr>
+										<tr>
+											<td style="vertical-align:bottom">strong</td>
+										</tr>
+									</table>
+								</td>
+								<td class="col-q"><strong>Data reduction</strong><span class="sub-text">Artifact rejection, classification</span></td>
+								<td class="col-pixel">
+									<iframe src="pixelpress2d.php?id=reduction_" scrolling="no"></iframe>
+								</td>
+								<td class="col-q"><strong>Literature search</strong><span class="sub-text">Arxiv sorting, ADS similar papers</span></td>
+								<td class="col-pixel">
+									<iframe src="pixelpress2d.php?id=literature_" scrolling="no"></iframe>
+								</td>
+							</tr>
+							<tr>
+								<td class="col-q"><strong>Reading</strong><span class="sub-text">Ask LLM for summaries, clarification</span></td>
+								<td class="col-pixel">
+									<iframe src="pixelpress2d.php?id=reading_" scrolling="no"></iframe>
+								</td>
+								<td class="col-q"><strong>Programming</strong><span class="sub-text">Analysis code generation, debugging</span></td>
+								<td class="col-pixel">
+									<iframe src="pixelpress2d.php?id=programming_" scrolling="no"></iframe>
+								</td>
+								<td class="col-q"><strong>Data analysis</strong><span class="sub-text">Accelerating inference with emulators, SBI</span></td>
+								<td class="col-pixel">
+									<iframe src="pixelpress2d.php?id=analysis_" scrolling="no"></iframe>
+								</td>
+							</tr>
+							<tr>
+								<td class="col-q"><strong>Writing papers &amp; proposals</strong><span class="sub-text">Grammar rephrasing, initial draft from code</span></td>
+								<td class="col-pixel">
+									<iframe src="pixelpress2d.php?id=writing_" scrolling="no"></iframe>
+								</td>
+								<td class="col-q"><strong>Reviewing</strong><span class="sub-text">Identify problems in other people's papers</span></td>
+								<td class="col-pixel">
+									<iframe src="pixelpress2d.php?id=reviewing_" scrolling="no"></iframe>
+								</td>
+								<td class="col-q"><strong>Autonomous research</strong><span class="sub-text">Agents doing end-to-end research</span></td>
+								<td class="col-pixel">
+									<iframe src="pixelpress2d.php?id=agents_" scrolling="no"></iframe>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="dist/plugin/notes.js"></script>
+		<script src="dist/plugin/markdown.js"></script>
+		<script src="dist/plugin/highlight.js"></script>
+		<script>
+			Reveal.initialize({
+				hash: true,
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+			});
+		</script>
+	</body>
+</html>
