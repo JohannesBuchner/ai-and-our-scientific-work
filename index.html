@@ -226,6 +226,85 @@
 			.q-legend-bottom .legend-item {
 				font-weight: normal;
 			}
+
+			/* Usage results table styles */
+			.usage-results-table {
+				border-collapse: collapse;
+				width: 100%;
+				table-layout: fixed;
+			}
+			.usage-results-table td {
+				border: none !important;
+				padding: 2px 4px;
+				vertical-align: middle;
+			}
+			.usage-results-table td.ur-label {
+				text-align: center;
+				padding: 4px 2px !important;
+				font-weight: bold;
+				font-size: 0.65em;
+			}
+
+			/* Each plot cell: fixed size, contains the axis-label table */
+			.usage-results-table td.ur-pixel {
+				padding: 0 !important;
+			}
+
+			/* Inner axis-label table wrapping each iframe */
+			.ur-inner-table {
+				border-collapse: collapse;
+				width: 100%;
+				height: 100%;
+				table-layout: fixed;
+			}
+			.ur-inner-table td {
+				border: none !important;
+				padding: 0 !important;
+			}
+			/* The cell that holds the iframe — takes up all remaining space */
+			.ur-inner-table td.ur-iframe-cell {
+				width: 100%;
+				height: 140px;
+			}
+			.ur-inner-table td.ur-iframe-cell iframe {
+				display: block;
+				width: 100%;
+				height: 100%;
+				border: 1px solid #555;
+				background: #fff;
+			}
+			/* Concern label column */
+			.ur-inner-table td.ur-concern-col {
+				width: 2em;
+				font-size: 0.35em;
+				white-space: nowrap;
+				text-align: right;
+				padding-right: 2px !important;
+			}
+			/* Never/daily label row */
+			.ur-inner-table td.ur-axis-bottom {
+				font-size: 0.35em;
+			}
+			.ur-axis-ends {
+				display: flex;
+				justify-content: space-between;
+			}
+			/* Spacer column between plots */
+			.ur-spacer {
+				width: 6px;
+			}
+
+			/* Agents slide – larger axis labels to match usage results slide */
+			.agents-axis-label {
+				font-size: 0.35em;
+			}
+			.agents-concern-col {
+				width: 2em;
+				font-size: 0.35em;
+				white-space: nowrap;
+				text-align: right;
+				padding-right: 2px !important;
+			}
 		</style>
 	</head>
 	<body>
@@ -271,9 +350,9 @@
 					<h2>Structure</h2>
 					<ul>
 						<li>Intro (3') -- we are here</li>
-						<li>Part 1 (7') - How do we use AI already?</li>
-						<li>Part 2 (7') - reading/writing</li>
-						<li>Part 3 (7') - limits</li>
+						<li>Part 1 (7') - How do we use AI already? (interactive questionaire)</li>
+						<li>Part 2 (7') - reading/writing (panel-lead discussion)</li>
+						<li>Part 3 (7') - limits (panel-lead discussion)</li>
 					</ul>
 					<p class="slide-lead">Joel</p>
 				</section>
@@ -318,10 +397,10 @@
 							<div class="question-label">Literature search <span class="sub-text">(Arxiv sorting, ADS similar papers)</span></div>
 							<div class="sliders-row">
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q2_x">
+									<input type="range" min="0" max="1000" value="500" id="q_literature_x">
 								</div>
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q2_y">
+									<input type="range" min="0" max="1000" value="500" id="q_literature_y">
 								</div>
 							</div>
 						</div>
@@ -331,10 +410,10 @@
 							<div class="question-label">Reading <span class="sub-text">(Ask LLM for summaries, clarification)</span></div>
 							<div class="sliders-row">
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q3_x">
+									<input type="range" min="0" max="1000" value="500" id="q_reading_x">
 								</div>
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q3_y">
+									<input type="range" min="0" max="1000" value="500" id="q_reading_y">
 								</div>
 							</div>
 						</div>
@@ -349,7 +428,7 @@
 							</div>
 						</div>
 
-						<button class="submit-btn" onclick="submitQuestions([2,3])">Submit</button>
+						<button class="submit-btn" onclick="submitQuestions(['literature', 'reading'])">Submit</button>
 						<div class="submit-status" id="status-1"></div>
 					</div>
 				</section>
@@ -376,10 +455,10 @@
 							<div class="question-label">Data reduction <span class="sub-text">(Artifact rejection, classification)</span></div>
 							<div class="sliders-row">
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q1_x">
+									<input type="range" min="0" max="1000" value="500" id="q_reduction_x">
 								</div>
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q1_y">
+									<input type="range" min="0" max="1000" value="500" id="q_reduction_y">
 								</div>
 							</div>
 						</div>
@@ -389,10 +468,10 @@
 							<div class="question-label">Programming <span class="sub-text">(Analysis code generation, debugging)</span></div>
 							<div class="sliders-row">
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q4_x">
+									<input type="range" min="0" max="1000" value="500" id="q_programming_x">
 								</div>
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q4_y">
+									<input type="range" min="0" max="1000" value="500" id="q_programming_y">
 								</div>
 							</div>
 						</div>
@@ -402,10 +481,10 @@
 							<div class="question-label">Data analysis <span class="sub-text">(Accelerating inference with emulators, SBI)</span></div>
 							<div class="sliders-row">
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q5_x">
+									<input type="range" min="0" max="1000" value="500" id="q_analysis_x">
 								</div>
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q5_y">
+									<input type="range" min="0" max="1000" value="500" id="q_analysis_y">
 								</div>
 							</div>
 						</div>
@@ -420,7 +499,7 @@
 							</div>
 						</div>
 
-						<button class="submit-btn" onclick="submitQuestions([1,4,5])">Submit</button>
+						<button class="submit-btn" onclick="submitQuestions(['reduction', 'programming', 'analysis'])">Submit</button>
 						<div class="submit-status" id="status-2"></div>
 					</div>
 				</section>
@@ -447,10 +526,10 @@
 							<div class="question-label">Writing papers &amp; proposals <span class="sub-text">(Grammar rephrasing, initial draft from code)</span></div>
 							<div class="sliders-row">
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q6_x">
+									<input type="range" min="0" max="1000" value="500" id="q_writing_x">
 								</div>
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q6_y">
+									<input type="range" min="0" max="1000" value="500" id="q_writing_y">
 								</div>
 							</div>
 						</div>
@@ -460,10 +539,10 @@
 							<div class="question-label">Autonomous research <span class="sub-text">(Agents doing end-to-end research)</span></div>
 							<div class="sliders-row">
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q7_x">
+									<input type="range" min="0" max="1000" value="500" id="q_agents_x">
 								</div>
 								<div class="slider-group">
-									<input type="range" min="0" max="1000" value="500" id="q7_y">
+									<input type="range" min="0" max="1000" value="500" id="q_agents_y">
 								</div>
 							</div>
 						</div>
@@ -478,77 +557,210 @@
 							</div>
 						</div>
 
-						<button class="submit-btn" onclick="submitQuestions([6,7])">Submit</button>
+						<button class="submit-btn" onclick="submitQuestions(['writing', 'agents'])">Submit</button>
 						<div class="submit-status" id="status-3"></div>
 					</div>
 				</section>
 
-				<!-- HOW DO YOU USE AI? – six-column table -->
+				<!-- Usage results – table layout -->
 				<section>
 					<h2 style="font-size:0.75em; margin-bottom: 0.3em;">Usage results</h2>
-					<table class="use-table">
+					<table class="usage-results-table">
+						<colgroup>
+							<col><!-- plot 1 -->
+							<col class="ur-spacer">
+							<col><!-- plot 2 -->
+							<col class="ur-spacer">
+							<col><!-- plot 3 -->
+						</colgroup>
 						<tbody>
+							<!-- Label row: top -->
 							<tr>
-								<td class="col-q"><strong>Demo</strong><span class="sub-text">Demonstration iframe example</span></td>
-								<td class="col-pixel">
-									<table class="quad-table">
+								<td class="ur-label">Literature</td>
+								<td class="ur-spacer"></td>
+								<td class="ur-label">Reading</td>
+								<td class="ur-spacer"></td>
+								<td class="ur-label">Writing</td>
+							</tr>
+							<!-- Pixel row: top -->
+							<tr>
+								<td class="ur-pixel">
+									<table class="ur-inner-table">
 										<tr>
-											<td></td>
-											<td></td>
-											<td colspan="2">How often do use AI for your work?</td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td align="left">daily</td>
-											<td align="right">never</td>
-										</tr>
-										<tr>
-											<td rowspan="2" class="rotate-cell"><div>Ethical concerns?</div></td>
-											<td style="vertical-align:top">none</td>
-											<td rowspan="2" colspan="2">
-												<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=useful_ethics" scrolling="no"></iframe>
+											<td class="ur-concern-col" style="vertical-align:top;">high</td>
+											<td class="ur-iframe-cell" rowspan="2">
+												<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=literature_" scrolling="no"></iframe>
 											</td>
 										</tr>
 										<tr>
-											<td style="vertical-align:bottom">strong</td>
+											<td class="ur-concern-col" style="vertical-align:bottom;">low</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td class="ur-axis-bottom">
+												<div class="ur-axis-ends"><span>never</span><span>daily</span></div>
+											</td>
 										</tr>
 									</table>
 								</td>
-								<td class="col-q"><strong>Data reduction</strong><span class="sub-text">Artifact rejection, classification</span></td>
-								<td class="col-pixel">
-									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=reduction_" scrolling="no"></iframe>
+								<td class="ur-spacer"></td>
+								<td class="ur-pixel">
+									<table class="ur-inner-table">
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:top;">high</td>
+											<td class="ur-iframe-cell" rowspan="2">
+												<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=reading_" scrolling="no"></iframe>
+											</td>
+										</tr>
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:bottom;">low</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td class="ur-axis-bottom">
+												<div class="ur-axis-ends"><span>never</span><span>daily</span></div>
+											</td>
+										</tr>
+									</table>
 								</td>
-								<td class="col-q"><strong>Literature search</strong><span class="sub-text">Arxiv sorting, ADS similar papers</span></td>
-								<td class="col-pixel">
-									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=literature_" scrolling="no"></iframe>
+								<td class="ur-spacer"></td>
+								<td class="ur-pixel">
+									<table class="ur-inner-table">
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:top;">high</td>
+											<td class="ur-iframe-cell" rowspan="2">
+												<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=writing_" scrolling="no"></iframe>
+											</td>
+										</tr>
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:bottom;">low</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td class="ur-axis-bottom">
+												<div class="ur-axis-ends"><span>never</span><span>daily</span></div>
+											</td>
+										</tr>
+									</table>
 								</td>
 							</tr>
+							<!-- Label row: bottom -->
 							<tr>
-								<td class="col-q"><strong>Reading</strong><span class="sub-text">Ask LLM for summaries, clarification</span></td>
-								<td class="col-pixel">
-									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=reading_" scrolling="no"></iframe>
+								<td class="ur-label">Reduction</td>
+								<td class="ur-spacer"></td>
+								<td class="ur-label">Programming</td>
+								<td class="ur-spacer"></td>
+								<td class="ur-label">Analysis</td>
+							</tr>
+							<!-- Pixel row: bottom -->
+							<tr>
+								<td class="ur-pixel">
+									<table class="ur-inner-table">
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:top;">high</td>
+											<td class="ur-iframe-cell" rowspan="2">
+												<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=reduction_" scrolling="no"></iframe>
+											</td>
+										</tr>
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:bottom;">low</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td class="ur-axis-bottom">
+												<div class="ur-axis-ends"><span>never</span><span>daily</span></div>
+											</td>
+										</tr>
+									</table>
 								</td>
-								<td class="col-q"><strong>Programming</strong><span class="sub-text">Analysis code generation, debugging</span></td>
-								<td class="col-pixel">
-									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=programming_" scrolling="no"></iframe>
+								<td class="ur-spacer"></td>
+								<td class="ur-pixel">
+									<table class="ur-inner-table">
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:top;">high</td>
+											<td class="ur-iframe-cell" rowspan="2">
+												<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=programming_" scrolling="no"></iframe>
+											</td>
+										</tr>
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:bottom;">low</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td class="ur-axis-bottom">
+												<div class="ur-axis-ends"><span>never</span><span>daily</span></div>
+											</td>
+										</tr>
+									</table>
 								</td>
-								<td class="col-q"><strong>Data analysis</strong><span class="sub-text">Accelerating inference with emulators, SBI</span></td>
-								<td class="col-pixel">
-									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=analysis_" scrolling="no"></iframe>
+								<td class="ur-spacer"></td>
+								<td class="ur-pixel">
+									<table class="ur-inner-table">
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:top;">high</td>
+											<td class="ur-iframe-cell" rowspan="2">
+												<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=analysis_" scrolling="no"></iframe>
+											</td>
+										</tr>
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:bottom;">low</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td class="ur-axis-bottom">
+												<div class="ur-axis-ends"><span>never</span><span>daily</span></div>
+											</td>
+										</tr>
+									</table>
 								</td>
 							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<!-- Agents – separate slide -->
+				<section>
+					<h2 style="font-size:0.75em; margin-bottom: 0.4em;">Usage results – Autonomous research</h2>
+					<table class="usage-results-table" style="width: auto; margin: 0 auto;">
+						<tbody>
 							<tr>
-								<td class="col-q"><strong>Writing papers &amp; proposals</strong><span class="sub-text">Grammar rephrasing, initial draft from code</span></td>
-								<td class="col-pixel">
-									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=writing_" scrolling="no"></iframe>
+								<td class="ur-label" style="width: 8em; font-size: 0.75em;">
+									<strong>Autonomous research</strong>
+									<span style="display:block; font-size:0.75em; font-weight:normal; color:#555;">Agents doing end-to-end research</span>
 								</td>
-								<td class="col-q"><strong>Autonomous research</strong><span class="sub-text">Agents doing end-to-end research</span></td>
-								<td class="col-pixel">
-									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=agents_" scrolling="no"></iframe>
+								<td class="ur-spacer"></td>
+								<td class="ur-pixel" style="width: 320px;">
+									<table class="ur-inner-table">
+										<colgroup>
+											<col style="width: 2em;">
+											<col>
+										</colgroup>
+										<tr>
+											<td colspan="2" style="font-size:0.35em; text-align:center; padding-bottom:2px !important;">How often do you use AI?</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td class="ur-axis-bottom">
+												<div class="ur-axis-ends"><span>never</span><span>daily</span></div>
+											</td>
+										</tr>
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:top;">very<br>concerned</td>
+											<td class="ur-iframe-cell" rowspan="2" style="height: 260px;">
+												<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=agents_" scrolling="no" style="min-height:260px;"></iframe>
+											</td>
+										</tr>
+										<tr>
+											<td class="ur-concern-col" style="vertical-align:bottom;">not<br>concerned</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td class="ur-axis-bottom">
+												<div class="ur-axis-ends"><span>never</span><span>daily</span></div>
+											</td>
+										</tr>
+									</table>
 								</td>
-								<td class="col-q"></td>
-								<td class="col-pixel"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -556,17 +768,19 @@
 
 				<section>
 					<h2>Part II: Reading and Writing</h2>
-					<img src="https://i0.wp.com/blog.arxiv.org/wp-content/uploads/2026/10/arXiv-Monthly-Submissions-September-2026.png?resize=1024%2C642&ssl=1" />
+					<img style="width: 60%" src="https://i0.wp.com/blog.arxiv.org/wp-content/uploads/2026/10/arXiv-Monthly-Submissions-September-2026.png?resize=1024%2C642&ssl=1" />
 					<ul>
 						<li><a href="https://blog.arxiv.org/2026/10/01/updated-rate-limit-policy/">Oct 2026: ArXiV limits number of submission</a>
-						<li><strong>How much do you use AI for reading/writing papers?</strong></li>
+						<li><strong>How do you use AI for reading/writing papers?</strong></li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>Part III: Limits</h2>
-					<strong>For which use cases would you advise your students/postdocs that AI use is not appropriate?</strong>
-					(even through the GWDG/academiccloud interface)
+					<br/>
+					<strong>When would you advise your students/postdocs that AI use is not appropriate?</strong>
+					<br/>
+					<br/><em>(even through the GWDG/academiccloud interface)</em>
 				</section>
 
 			</div>
@@ -582,46 +796,50 @@
 				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
 			});
 
-			// Map question index to topic id used in the PHP backend
+			// Map topic key to the PHP backend id
 			const questionIds = {
-				1: 'reduction_',
-				2: 'literature_',
-				3: 'reading_',
-				4: 'programming_',
-				5: 'analysis_',
-				6: 'writing_',
-				7: 'agents_',
-				8: 'overall_'
+				'literature':  'literature_',
+				'reading':     'reading_',
+				'reduction':   'reduction_',
+				'programming': 'programming_',
+				'analysis':    'analysis_',
+				'writing':     'writing_',
+				'agents':      'agents_',
+				'overall':     'overall_'
 			};
 
-			// Map question index to which status div (slide number 1-3)
+			// Map topic key to which status div (slide number 1-3)
 			const questionSlide = {
-				2: 1, 3: 1,
-				1: 2, 4: 2, 5: 2,
-				6: 3, 7: 3
+				'literature':  1,
+				'reading':     1,
+				'reduction':   2,
+				'programming': 2,
+				'analysis':    2,
+				'writing':     3,
+				'agents':      3
 			};
 
 			// Storage key helpers
-			function storedKey(qIdx, axis) {
-				return 'pp_q' + qIdx + '_' + axis;
+			function storedKey(topic, axis) {
+				return 'pp_' + topic + '_' + axis;
 			}
 
-			function getStored(qIdx) {
-				const sx = localStorage.getItem(storedKey(qIdx, 'x'));
-				const sy = localStorage.getItem(storedKey(qIdx, 'y'));
+			function getStored(topic) {
+				const sx = localStorage.getItem(storedKey(topic, 'x'));
+				const sy = localStorage.getItem(storedKey(topic, 'y'));
 				if (sx !== null && sy !== null) {
 					return { x: parseFloat(sx), y: parseFloat(sy) };
 				}
 				return null;
 			}
 
-			function setStored(qIdx, x, y) {
-				localStorage.setItem(storedKey(qIdx, 'x'), x);
-				localStorage.setItem(storedKey(qIdx, 'y'), y);
+			function setStored(topic, x, y) {
+				localStorage.setItem(storedKey(topic, 'x'), x);
+				localStorage.setItem(storedKey(topic, 'y'), y);
 			}
 
-			function sendToServer(qIdx, x, y, old) {
-				const id = questionIds[qIdx];
+			function sendToServer(topic, x, y, old) {
+				const id = questionIds[topic];
 				let url = 'https://astrost.at/pixelpress/pixelpress2d.php?id=' + encodeURIComponent(id)
 					+ '&x=' + x + '&y=' + y;
 				if (old !== null) {
@@ -630,20 +848,20 @@
 				return fetch(url);
 			}
 
-			function submitQuestions(qIndices) {
-				// Determine status div from first question in this group
-				const slideNum = questionSlide[qIndices[0]];
+			function submitQuestions(topics) {
+				// Determine status div from first topic in this group
+				const slideNum = questionSlide[topics[0]];
 				const statusEl = document.getElementById('status-' + slideNum);
 				statusEl.textContent = 'Sending…';
 
-				const promises = qIndices.map(qIdx => {
-					const xSlider = document.getElementById('q' + qIdx + '_x');
-					const ySlider = document.getElementById('q' + qIdx + '_y');
+				const promises = topics.map(topic => {
+					const xSlider = document.getElementById('q_' + topic + '_x');
+					const ySlider = document.getElementById('q_' + topic + '_y');
 					const x = parseFloat(xSlider.value) / 1000.0;
 					const y = parseFloat(ySlider.value) / 1000.0;
-					const old = getStored(qIdx);
-					setStored(qIdx, x, y);
-					return sendToServer(qIdx, x, y, old);
+					const old = getStored(topic);
+					setStored(topic, x, y);
+					return sendToServer(topic, x, y, old);
 				});
 
 				Promise.all(promises)
