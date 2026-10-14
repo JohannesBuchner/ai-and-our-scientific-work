@@ -305,6 +305,38 @@
 				text-align: right;
 				padding-right: 2px !important;
 			}
+			.container{
+				display: flex;
+			}
+			.col{
+				flex: 1;
+			}
+
+			/* Panel slide: photo-as-bullet styles */
+			.panel-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.panel-list li {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				gap: 0.6em;
+				margin-bottom: 0.5em;
+			}
+			.panel-list li img {
+				width: 80px;
+				height: 80px;
+				object-fit: cover;
+				border-radius: 50%;
+				flex-shrink: 0;
+				display: block;
+			}
+			.panel-list li span {
+				font-size: 0.75em;
+				line-height: 1.3;
+			}
 		</style>
 	</head>
 	<body>
@@ -332,17 +364,30 @@
 						<hr/>
 						<li>AI is not everything and AI is not nothing</li>
 					</ul>
-					<p class="slide-lead">TBD, otherwise Johannes</p>
+					<p class="slide-lead">Johannes</p>
 				</section>
 
 				<section>
 					<h2>Panel</h2>
-					<ul>
-						<li>Joel Gil León</li>
-						<li>Johannes Buchner (HEG)</li>
-						<li>Ekkehard Wieprecht (IR)</li>
-						<li>Miguel Jiménez Redondo (CAS)</li>
+					<ul class="panel-list">
+                        <!--Joel Gil León-->
+						<li>
+							<img src="https://www.mpe.mpg.de/employee_images/17718-1791925837" alt="Ekkehard Wieprecht" />
+							<span>Ekkehard Wieprecht (IR, engineer)</span>
+						</li>
+						<li>
+							<img src="https://www.mpe.mpg.de/employee_images/98741-1791925838" alt="Johannes Buchner" />
+							<span>Johannes Buchner (HEG, postdoc)</span>
+						</li>
+						<li>
+							<img src="https://www.mpe.mpg.de/employee_images/111821-1791925840" alt="Miguel Jiménez Redondo" />
+							<span>Miguel Jiménez Redondo (CAS, postdoc)</span>
+						</li>
 					</ul>
+					<p style="margin-top: 0.8em; font-size: 0.75em;">
+						Questions placed to guests<br/>
+						10 min discussion + audience questions
+					</p>
 					<p class="slide-lead">Joel</p>
 				</section>
 
@@ -365,7 +410,7 @@
 						<li><strong>L</strong>arge <strong>L</strong>anguage <strong>M</strong>odels</li>
 						<!-- <li><strong>G</strong>enerative <strong>P</strong>re-trained <strong>T</strong>ransformers</li>-->
 						<li><em>Slop</em>: Garbage output</li>
-						<li><em>Meat proxy</em>: using without thinking</li>
+						<!--<li><em>Meat proxy</em>: using without thinking</li>-->
 					</ul>
 					<p class="slide-lead">Johannes</p>
 				</section>
@@ -768,15 +813,32 @@
 
 				<section>
 					<h2>II: Reading &amp; Writing</h2>
-					<img style="width: 60%" src="https://i0.wp.com/blog.arxiv.org/wp-content/uploads/2026/10/arXiv-Monthly-Submissions-September-2026.png?resize=1024%2C642&ssl=1" />
-					<ul>
-						<li><a href="https://blog.arxiv.org/2026/10/01/updated-rate-limit-policy/">Oct 2026: ArXiV limits number of submission</a>
-						<li><strong>How do you use AI for reading/writing papers?</strong></li>
-					</ul>
+					<div class="container">
+					<div class="col">
+					<p style="font-size: 0.5em;"><em>
+						Oct 1st: arXiv instituted strict submission limits 
+						to combat the flood of 'AI slop' and 'salami-sliced' papers.<br/>
+						It feels like we've hit a breaking point where the speed of production has finally outpaced our human capacity to moderate and read.
+					</em></p>
+					<p>
+						Do you feel this speed pressure in your own work? If so, are you now relying on AI for reading, writing, or reviewing already?
+					</p>
+					</div>
+					<div class="col">
+					<img style="width: 100%" src="https://i0.wp.com/blog.arxiv.org/wp-content/uploads/2026/10/arXiv-Monthly-Submissions-September-2026.png?resize=1024%2C642&ssl=1" />
+					</div>
+					</div>
 				</section>
 
 				<section>
 					<h2>III: Limits</h2>
+					<p><em>
+						Example: Someone types their research question into AI,
+						which outputs analysis code, and plots.
+						When getting errors or advisor feedback on the work, they type the 
+						feedback into the AI.<br/>
+						Concern: No domain expertise is built.
+					</em></p>
 					<br/>
 					<strong>When would you advise your students/postdocs that AI use is not appropriate?</strong>
 					<br/>
@@ -796,7 +858,7 @@
 				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
 			});
 
-			// Map topic key to the PHP backend id
+			// Map topic key to the PHP backend id (must match pixelpress2d.php ?id= parameter)
 			const questionIds = {
 				'literature':  'literature_',
 				'reading':     'reading_',
@@ -819,7 +881,7 @@
 				'agents':      3
 			};
 
-			// Storage key helpers
+			// Storage key helpers (localStorage, for slider state across page reloads)
 			function storedKey(topic, axis) {
 				return 'pp_' + topic + '_' + axis;
 			}
@@ -836,6 +898,22 @@
 			function setStored(topic, x, y) {
 				localStorage.setItem(storedKey(topic, 'x'), x);
 				localStorage.setItem(storedKey(topic, 'y'), y);
+			}
+
+			/**
+			 * Set a cookie readable by pixelpress2d.php on the same server.
+			 * The cookie name format expected by pixelpress2d.php is:
+			 *   px_<id>_x  and  px_<id>_y
+			 * where <id> is the value passed as ?id= to pixelpress2d.php.
+			 * path=/ so that the /pixelpress/ path can read it.
+			 * SameSite=Lax so it is sent with same-site navigations (iframes on same domain).
+			 */
+			function setPixelpressCookie(id, x, y) {
+				const maxAge = 365 * 24 * 3600; // 1 year
+				const xEnc = encodeURIComponent(x);
+				const yEnc = encodeURIComponent(y);
+				document.cookie = 'px_' + id + '_x=' + xEnc + '; path=/; max-age=' + maxAge + '; SameSite=Lax';
+				document.cookie = 'px_' + id + '_y=' + yEnc + '; path=/; max-age=' + maxAge + '; SameSite=Lax';
 			}
 
 			function sendToServer(topic, x, y, old) {
@@ -861,6 +939,11 @@
 					const y = 1 - parseFloat(ySlider.value) / 1000.0;
 					const old = getStored(topic);
 					setStored(topic, x, y);
+
+					// Save cookies so pixelpress2d.php iframe can read the user's position
+					const id = questionIds[topic];
+					setPixelpressCookie(id, x, y);
+
 					return sendToServer(topic, x, y, old);
 				});
 
@@ -872,6 +955,18 @@
 						statusEl.textContent = 'Error sending data. Please try again.';
 					});
 			}
+
+			// On page load, restore slider positions from localStorage if available
+			(function restoreSliders() {
+				Object.keys(questionIds).forEach(function(topic) {
+					const stored = getStored(topic);
+					if (!stored) return;
+					const xSlider = document.getElementById('q_' + topic + '_x');
+					const ySlider = document.getElementById('q_' + topic + '_y');
+					if (xSlider) xSlider.value = Math.round(stored.x * 1000);
+					if (ySlider) ySlider.value = Math.round((1 - stored.y) * 1000);
+				});
+			})();
 		</script>
 	</body>
 </html>
