@@ -858,7 +858,7 @@
 					const xSlider = document.getElementById('q_' + topic + '_x');
 					const ySlider = document.getElementById('q_' + topic + '_y');
 					const x = parseFloat(xSlider.value) / 1000.0;
-					const y = parseFloat(ySlider.value) / 1000.0;
+					const y = 1 - parseFloat(ySlider.value) / 1000.0;
 					const old = getStored(topic);
 					setStored(topic, x, y);
 					return sendToServer(topic, x, y, old);
