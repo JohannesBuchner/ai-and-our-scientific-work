@@ -118,8 +118,113 @@
 				word-break: break-word;
 			}
 			.use-table td span.sub-text {
-				font-size: 0.5em;
+				font-size: 0.4em;
 				display: block;
+			}
+			.questionnaire-slide span.sub-text {
+				color: #999;
+				font-weight: normal;
+			}
+
+			/* Questionnaire slide styles */
+			.questionnaire-slide {
+				font-size: 0.78em;
+			}
+			.question-block {
+				margin-bottom: 1.1em;
+				text-align: left;
+			}
+			.question-block .question-label {
+				font-weight: bold;
+				margin-bottom: 0.3em;
+				font-size: 1em;
+			}
+			.question-block .question-sub {
+				font-size: 0.75em;
+				color: #555;
+				margin-bottom: 0.4em;
+			}
+			.sliders-row {
+				display: flex;
+				flex-direction: row;
+				gap: 2em;
+				align-items: flex-start;
+			}
+			.slider-group {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+			}
+			.slider-group label {
+				font-size: 0.85em;
+				margin-bottom: 0.15em;
+				font-weight: bold;
+			}
+			.slider-group input[type=range] {
+				width: 100%;
+				margin: 0.1em 0;
+			}
+			.submit-btn {
+				margin-top: 1em;
+				padding: 0.4em 1.6em;
+				font-size: 1em;
+				cursor: pointer;
+				background: #2a7ae2;
+				color: white;
+				border: none;
+				border-radius: 4px;
+			}
+			.submit-btn:hover {
+				background: #1a5abf;
+			}
+			.submit-status {
+				font-size: 0.7em;
+				color: #555;
+				margin-top: 0.3em;
+				min-height: 1.2em;
+			}
+			.slide-lead {
+				text-align: right;
+				font-style: italic;
+				font-size: small;
+			}
+
+			/* Shared question legend shown at top of each questionnaire slide */
+			.q-legend {
+				display: flex;
+				flex-direction: row;
+				gap: 2em;
+				margin-bottom: 0.8em;
+				font-size: 0.78em;
+				border-bottom: 1px solid #ccc;
+				padding-bottom: 0.5em;
+			}
+			.q-legend-bottom {
+				display: flex;
+				flex-direction: row;
+				gap: 2em;
+				margin-top: 0.5em;
+				margin-bottom: 0.8em;
+				font-size: 0.78em;
+				border-top: 1px solid #ccc;
+				padding-top: 0.5em;
+			}
+			.q-legend .legend-item,
+			.q-legend-bottom .legend-item {
+				flex: 1;
+				font-weight: bold;
+				color: #333;
+			}
+			.q-legend .legend-item .legend-ends,
+			.q-legend-bottom .legend-item .legend-ends {
+				display: flex;
+				justify-content: space-between;
+				font-size: 0.8em;
+				font-weight: normal;
+				color: #555;
+			}
+			.q-legend-bottom .legend-item {
+				font-weight: normal;
 			}
 		</style>
 	</head>
@@ -135,116 +240,252 @@
 					<h2>AI &amp; our scientific work</h2>
 					Interactive Discussion 
 					<img src="qr.svg" alt="QR code" style="max-width:50%; max-height:50%" />
+					<p class="slide-lead">Joel</p>
 				</section>
 
-				<!-- Slide 1: AI taking over? -->
 				<section>
-					<h2>AI taking over?</h2>
+					<h2>Motivation</h2>
 					<ul>
-						<li>Self-driving cars – but are humans that good at driving?</li>
 						<li>Mathematics</li>
 						<li>50% of astro papers co-written with AI support, &lt;1% declare it <em style="color:gray">arxiv:2609.10664</em></li>
+						<li>Self-driving cars – but are humans that good at driving?</li>
 						<li>Fear, uncertainty and doubt</li>
 						<hr/>
 						<li>AI is not everything and AI is not nothing</li>
 					</ul>
+					<p class="slide-lead">TBD, otherwise Johannes</p>
 				</section>
 
-				<!-- Slide 2: Terminology -->
 				<section>
-					<h2>Terminology</h2>
+					<h2>Panel</h2>
+					<ul>
+						<li>Joel Gil León</li>
+						<li>Johannes Buchner (HEG)</li>
+						<li>Ekkehard Wieprecht (IR)</li>
+						<li>Miguel Jiménez Redondo (CAS)</li>
+					</ul>
+					<p class="slide-lead">Joel</p>
+				</section>
+
+				<section>
+					<h2>Structure</h2>
+					<ul>
+						<li>Intro (3') -- we are here</li>
+						<li>Part 1 (7') - How do we use AI already?</li>
+						<li>Part 2 (7') - reading/writing</li>
+						<li>Part 3 (7') - limits</li>
+					</ul>
+					<p class="slide-lead">Joel</p>
+				</section>
+
+				<section>
+					<h2>Some terms that may come up</h2>
 					<ul>
 						<li><strong>A</strong>rtificial <strong>I</strong>ntelligence: computers capable of learning, reasoning, problem-solving, perception, and decision-making</li>
 						<li><strong>M</strong>achine <strong>L</strong>earning: data-driven model ability</li>
 						<li><strong>L</strong>arge <strong>L</strong>anguage <strong>M</strong>odels</li>
-						<li><strong>G</strong>enerative <strong>P</strong>re-trained <strong>T</strong>ransformers</li>
+						<!-- <li><strong>G</strong>enerative <strong>P</strong>re-trained <strong>T</strong>ransformers</li>-->
 						<li><em>Slop</em>: Garbage output</li>
 						<li><em>Meat proxy</em>: using without thinking</li>
 					</ul>
+					<p class="slide-lead">Johannes</p>
 				</section>
 
-				<!-- Slide 3: Using AI -->
 				<section>
-					<h2>Using AI</h2>
-					<ul>
-						<li>Computers</li>
-						<li>"Interpolator" of some training data</li>
-						<li>Model improves its capacity with data fed into it</li>
-						<li>Areas:
-							<ul>
-								<li>Large homogeneous surveys (spectra, images, sims)</li>
-								<li>Accelerating physics models (emulators: spectral emulators)</li>
-								<li>Doing research (programming, writing, idea generation, automating) – Large Language Models</li>
-							</ul>
-						</li>
-					</ul>
+					<h2>Part I: How do we use AI today?</h2>
+					<img src="qr.svg" alt="QR code" style="max-width:50%; max-height:50%" />
 				</section>
 
-
-				<!-- Slide 5: 2D Interactive Poll -->
+				<!-- Questionnaire Slide 1 of 3: Literature, Reading -->
 				<section>
-					<h2 style="font-size:0.85em;">Live Poll – Usage &amp; Mood</h2>
-					<div class="poll-wrap">
-						<table>
-							<tr>
-								<td></td>
-								<td></td>
-								<td colspan="2"><strong>How often do you use AI?</strong></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td align="left">never</td>
-								<td align="right">daily</td>
-							</tr>
-							<tr>
-								<td rowspan="2" class="rotate-cell"><div><strong>How do you feel about AI?</strong></div></td>
-								<td style="vertical-align:top">relaxed</td>
-								<td rowspan="2" colspan="2" class="pollbox">
-									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=usage_mood" scrolling="no"></iframe>
-								</td>
-							</tr>
-							<tr>
-								<td style="vertical-align:bottom">anxious</td>
-							</tr>
-						</table>
-					</div>
-				</section>
-				<section>
-					<h2>Live Poll – Usage &amp; Mood</h2>
-					<div class="poll-wrap">
+					<h2 style="font-size:0.85em;">Questionnaire (1/3)</h2>
+					<div class="questionnaire-slide" id="q-slide-1">
 
-						<div style="margin-top: 0.1em;">
-							<table>
-								<tr>
-									<td></td>
-									<td></td>
-									<td colspan="2"><strong>How useful do you find AI for your work?</strong></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td align="left">not useful</td>
-									<td align="right">very useful</td>
-								</tr>
-								<tr>
-									<td rowspan="2" class="rotate-cell"><div><strong>Ethical concerns?</strong></div></td>
-									<td style="vertical-align:top">none</td>
-									<td rowspan="2" colspan="2" class="col-pixel">
-										<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=useful_ethics" scrolling="no"></iframe>
-									</td>
-								</tr>
-								<tr>
-									<td style="vertical-align:bottom">strong</td>
-								</tr>
-							</table>
+						<!-- Shared questions legend at top -->
+						<div class="q-legend">
+							<div class="legend-item">
+								How often do you use AI for this?
+								<div class="legend-ends"><span>← never</span><span>daily →</span></div>
+							</div>
+							<div class="legend-item">
+								How concerned are you about AI here?
+								<div class="legend-ends"><span>← not concerned</span><span>very concerned →</span></div>
+							</div>
 						</div>
+
+						<!-- Question 1: Literature search -->
+						<div class="question-block">
+							<div class="question-label">Literature search <span class="sub-text">(Arxiv sorting, ADS similar papers)</span></div>
+							<div class="sliders-row">
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q2_x">
+								</div>
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q2_y">
+								</div>
+							</div>
+						</div>
+
+						<!-- Question 2: Reading -->
+						<div class="question-block">
+							<div class="question-label">Reading <span class="sub-text">(Ask LLM for summaries, clarification)</span></div>
+							<div class="sliders-row">
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q3_x">
+								</div>
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q3_y">
+								</div>
+							</div>
+						</div>
+
+						<!-- Legend at bottom -->
+						<div class="q-legend-bottom">
+							<div class="legend-item">
+								<div class="legend-ends"><span>← never</span><span>daily →</span></div>
+							</div>
+							<div class="legend-item">
+								<div class="legend-ends"><span>← not concerned</span><span>very concerned →</span></div>
+							</div>
+						</div>
+
+						<button class="submit-btn" onclick="submitQuestions([2,3])">Submit</button>
+						<div class="submit-status" id="status-1"></div>
 					</div>
 				</section>
 
-				<!-- Slide 4: HOW DO YOU USE AI? – six-column table -->
+				<!-- Questionnaire Slide 2 of 3: Data reduction, Programming, Data analysis -->
 				<section>
-					<h2 style="font-size:0.75em; margin-bottom: 0.3em;">HOW DO YOU USE AI?</h2>
+					<h2 style="font-size:0.85em;">Questionnaire (2/3)</h2>
+					<div class="questionnaire-slide" id="q-slide-2">
+
+						<!-- Shared questions legend at top -->
+						<div class="q-legend">
+							<div class="legend-item">
+								How often do you use AI for this?
+								<div class="legend-ends"><span>← never</span><span>daily →</span></div>
+							</div>
+							<div class="legend-item">
+								How concerned are you about AI here?
+								<div class="legend-ends"><span>← not concerned</span><span>very concerned →</span></div>
+							</div>
+						</div>
+
+						<!-- Question 3: Data reduction -->
+						<div class="question-block">
+							<div class="question-label">Data reduction <span class="sub-text">(Artifact rejection, classification)</span></div>
+							<div class="sliders-row">
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q1_x">
+								</div>
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q1_y">
+								</div>
+							</div>
+						</div>
+
+						<!-- Question 4: Programming -->
+						<div class="question-block">
+							<div class="question-label">Programming <span class="sub-text">(Analysis code generation, debugging)</span></div>
+							<div class="sliders-row">
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q4_x">
+								</div>
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q4_y">
+								</div>
+							</div>
+						</div>
+
+						<!-- Question 5: Data analysis -->
+						<div class="question-block">
+							<div class="question-label">Data analysis <span class="sub-text">(Accelerating inference with emulators, SBI)</span></div>
+							<div class="sliders-row">
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q5_x">
+								</div>
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q5_y">
+								</div>
+							</div>
+						</div>
+
+						<!-- Legend at bottom -->
+						<div class="q-legend-bottom">
+							<div class="legend-item">
+								<div class="legend-ends"><span>← never</span><span>daily →</span></div>
+							</div>
+							<div class="legend-item">
+								<div class="legend-ends"><span>← not concerned</span><span>very concerned →</span></div>
+							</div>
+						</div>
+
+						<button class="submit-btn" onclick="submitQuestions([1,4,5])">Submit</button>
+						<div class="submit-status" id="status-2"></div>
+					</div>
+				</section>
+
+				<!-- Questionnaire Slide 3 of 3: Writing, Agents -->
+				<section>
+					<h2 style="font-size:0.85em;">Questionnaire (3/3)</h2>
+					<div class="questionnaire-slide" id="q-slide-3">
+
+						<!-- Shared questions legend at top -->
+						<div class="q-legend">
+							<div class="legend-item">
+								How often do you use AI for this?
+								<div class="legend-ends"><span>← never</span><span>daily →</span></div>
+							</div>
+							<div class="legend-item">
+								How concerned are you about AI here?
+								<div class="legend-ends"><span>← not concerned</span><span>very concerned →</span></div>
+							</div>
+						</div>
+
+						<!-- Question 6: Writing -->
+						<div class="question-block">
+							<div class="question-label">Writing papers &amp; proposals <span class="sub-text">(Grammar rephrasing, initial draft from code)</span></div>
+							<div class="sliders-row">
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q6_x">
+								</div>
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q6_y">
+								</div>
+							</div>
+						</div>
+
+						<!-- Question 7: Autonomous research -->
+						<div class="question-block">
+							<div class="question-label">Autonomous research <span class="sub-text">(Agents doing end-to-end research)</span></div>
+							<div class="sliders-row">
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q7_x">
+								</div>
+								<div class="slider-group">
+									<input type="range" min="0" max="1000" value="500" id="q7_y">
+								</div>
+							</div>
+						</div>
+
+						<!-- Legend at bottom -->
+						<div class="q-legend-bottom">
+							<div class="legend-item">
+								<div class="legend-ends"><span>← never</span><span>daily →</span></div>
+							</div>
+							<div class="legend-item">
+								<div class="legend-ends"><span>← not concerned</span><span>very concerned →</span></div>
+							</div>
+						</div>
+
+						<button class="submit-btn" onclick="submitQuestions([6,7])">Submit</button>
+						<div class="submit-status" id="status-3"></div>
+					</div>
+				</section>
+
+				<!-- HOW DO YOU USE AI? – six-column table -->
+				<section>
+					<h2 style="font-size:0.75em; margin-bottom: 0.3em;">Usage results</h2>
 					<table class="use-table">
 						<tbody>
 							<tr>
@@ -254,13 +495,13 @@
 										<tr>
 											<td></td>
 											<td></td>
-											<td colspan="2">How useful do you find AI for your work?</td>
+											<td colspan="2">How often do use AI for your work?</td>
 										</tr>
 										<tr>
 											<td></td>
 											<td></td>
-											<td align="left">not useful</td>
-											<td align="right">very useful</td>
+											<td align="left">daily</td>
+											<td align="right">never</td>
 										</tr>
 										<tr>
 											<td rowspan="2" class="rotate-cell"><div>Ethical concerns?</div></td>
@@ -302,17 +543,30 @@
 								<td class="col-pixel">
 									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=writing_" scrolling="no"></iframe>
 								</td>
-								<td class="col-q"><strong>Reviewing</strong><span class="sub-text">Identify problems in other people's papers</span></td>
-								<td class="col-pixel">
-									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=reviewing_" scrolling="no"></iframe>
-								</td>
 								<td class="col-q"><strong>Autonomous research</strong><span class="sub-text">Agents doing end-to-end research</span></td>
 								<td class="col-pixel">
 									<iframe loading="lazy" src="https://astrost.at/pixelpress/pixelpress2d.php?id=agents_" scrolling="no"></iframe>
 								</td>
+								<td class="col-q"></td>
+								<td class="col-pixel"></td>
 							</tr>
 						</tbody>
 					</table>
+				</section>
+
+				<section>
+					<h2>Part II: Reading and Writing</h2>
+					<img src="https://i0.wp.com/blog.arxiv.org/wp-content/uploads/2026/10/arXiv-Monthly-Submissions-September-2026.png?resize=1024%2C642&ssl=1" />
+					<ul>
+						<li><a href="https://blog.arxiv.org/2026/10/01/updated-rate-limit-policy/">Oct 2026: ArXiV limits number of submission</a>
+						<li><strong>How much do you use AI for reading/writing papers?</strong></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Part III: Limits</h2>
+					<strong>For which use cases would you advise your students/postdocs that AI use is not appropriate?</strong>
+					(even through the GWDG/academiccloud interface)
 				</section>
 
 			</div>
@@ -327,6 +581,79 @@
 				hash: true,
 				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
 			});
+
+			// Map question index to topic id used in the PHP backend
+			const questionIds = {
+				1: 'reduction_',
+				2: 'literature_',
+				3: 'reading_',
+				4: 'programming_',
+				5: 'analysis_',
+				6: 'writing_',
+				7: 'agents_',
+				8: 'overall_'
+			};
+
+			// Map question index to which status div (slide number 1-3)
+			const questionSlide = {
+				2: 1, 3: 1,
+				1: 2, 4: 2, 5: 2,
+				6: 3, 7: 3
+			};
+
+			// Storage key helpers
+			function storedKey(qIdx, axis) {
+				return 'pp_q' + qIdx + '_' + axis;
+			}
+
+			function getStored(qIdx) {
+				const sx = localStorage.getItem(storedKey(qIdx, 'x'));
+				const sy = localStorage.getItem(storedKey(qIdx, 'y'));
+				if (sx !== null && sy !== null) {
+					return { x: parseFloat(sx), y: parseFloat(sy) };
+				}
+				return null;
+			}
+
+			function setStored(qIdx, x, y) {
+				localStorage.setItem(storedKey(qIdx, 'x'), x);
+				localStorage.setItem(storedKey(qIdx, 'y'), y);
+			}
+
+			function sendToServer(qIdx, x, y, old) {
+				const id = questionIds[qIdx];
+				let url = 'https://astrost.at/pixelpress/pixelpress2d.php?id=' + encodeURIComponent(id)
+					+ '&x=' + x + '&y=' + y;
+				if (old !== null) {
+					url += '&old_x=' + old.x + '&old_y=' + old.y;
+				}
+				return fetch(url);
+			}
+
+			function submitQuestions(qIndices) {
+				// Determine status div from first question in this group
+				const slideNum = questionSlide[qIndices[0]];
+				const statusEl = document.getElementById('status-' + slideNum);
+				statusEl.textContent = 'Sending…';
+
+				const promises = qIndices.map(qIdx => {
+					const xSlider = document.getElementById('q' + qIdx + '_x');
+					const ySlider = document.getElementById('q' + qIdx + '_y');
+					const x = parseFloat(xSlider.value) / 1000.0;
+					const y = parseFloat(ySlider.value) / 1000.0;
+					const old = getStored(qIdx);
+					setStored(qIdx, x, y);
+					return sendToServer(qIdx, x, y, old);
+				});
+
+				Promise.all(promises)
+					.then(() => {
+						statusEl.textContent = 'Submitted! (click again to update)';
+					})
+					.catch(() => {
+						statusEl.textContent = 'Error sending data. Please try again.';
+					});
+			}
 		</script>
 	</body>
 </html>
